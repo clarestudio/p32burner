@@ -4,7 +4,7 @@ This is a very tiny, low-cost tool to program flash memory of
 the Microchip PIC32MX2xx series MCUs via the 2-wire ICSP protocol.
 This experimental project uses the Atmel/Microchip AVR microcontroller.
 
-This repository is renamed from previous old name `pic32icsp`.
+This repository was renamed from its previous name, pic32icsp.
 
 ## Status
 
