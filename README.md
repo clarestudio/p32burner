@@ -1,8 +1,10 @@
-# pic32icsp
+# p32burner
 
 This is a very tiny, low-cost tool to program flash memory of
 the Microchip PIC32MX2xx series MCUs via the 2-wire ICSP protocol.
 This experimental project uses the Atmel/Microchip AVR microcontroller.
+
+This repository is renamed from previous old name `pic32icsp`.
 
 ## Status
 
@@ -78,7 +80,7 @@ The versions of the bridge device and the host program should be matched.
 
 To write a program file "target.hex" via host serial port "ttyUSB01":
 
-./pic32icsp -d /dev/ttyUSB01 -w target.hex
+./p32burner -d /dev/ttyUSB01 -w target.hex
 
 ## To Do
 

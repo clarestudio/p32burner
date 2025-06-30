@@ -1,7 +1,7 @@
 CC=gcc
 INSTALL=/usr/bin/install
 BINDIR=/usr/local/bin
-PROG=pic32icsp
+PROG=p32burner
 NOMAN=1
 SRCS=main.c serial.c cmd.c tap.c icsp.c picdev.c pgbuf.c ihex.c writer.c
 OBJS=$(SRCS:%.c=%.o)

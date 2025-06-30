@@ -14,7 +14,7 @@
 void
 usage(void)
 {
-    printf("This is pic32icsp version 0.3\n");
+    printf("This is p32burner version 0.3\n");
     printf("The ICSP programmer for the Microchip PIC32MX[12]xx devices.\n");
     printf("Copyright (C) 2016, 2020, 2024 Shinichi Doyashiki.  All rights reserved.\n");
     printf("\n");
