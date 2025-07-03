@@ -1,5 +1,5 @@
 /*
- * JTAG state machine level functions
+ * JTAG state control over ICSP functions
  */
 
 /*
@@ -41,6 +41,9 @@ jtag_command(uint8_t bits)
     icsp_io(cmd, dat, bc);
 }
 
+/*
+ * transfer 8bit data register
+ */
 static uint8_t
 jtag_data_byte(uint8_t data)
 {
@@ -52,6 +55,9 @@ jtag_data_byte(uint8_t data)
     return rv;
 }
 
+/*
+ * transfer 32bit data register
+ */
 static uint32_t
 jtag_data_dword(uint32_t data)
 {
@@ -77,6 +83,9 @@ jtag_data_dword(uint32_t data)
     return rv;
 }
 
+/*
+ * EJTAG FASTDATA transfer (with 32bit data chain)
+ */
 static uint32_t
 ejtag_fastdata(uint32_t data)
 {
@@ -110,6 +119,9 @@ ejtag_fastdata(uint32_t data)
     return rv;
 }
 
+/*
+ * EJTAG execute an instruction
+ */
 static void
 ejtag_exec_insn(uint32_t insn)
 {
