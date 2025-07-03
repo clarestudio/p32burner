@@ -90,7 +90,7 @@ ejtag_fastdata(uint32_t data)
     d1 = data >>  8;
     d2 = data >> 16;
     d3 = data >> 24;
-    limit = 0;
+    limit = 255;
     do {
         icsp_io(0b001, 0, 3); /* start */
         flag = icsp_io(0, 0, 1);
