@@ -6,7 +6,7 @@
  * Move TAP state to idle
  */
 static void
-jtag_idle(void)
+jtag_reset_idle(void)
 {
     uint8_t cmd = 0b011111;
     uint8_t dat = 0;

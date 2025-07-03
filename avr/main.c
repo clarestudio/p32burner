@@ -102,7 +102,7 @@ int main(void)
 	    break;
 
 	case CMD_TAP_IDLE:
-	    jtag_idle();
+	    jtag_reset_idle();
 	    tty_putc(STATUS_ACK);
 	    break;
 	case CMD_TAP_COMMAND:
