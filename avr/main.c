@@ -9,8 +9,9 @@
 #include "tapdef.h"
 #include "tty.c"
 #include "pin.c"
-#include "icsp_low.c"
-#include "icsp_high.c"
+#include "icsp.c"
+#include "jtag.c"
+#include "prog.c"
 
 int main(void)
 {
@@ -101,7 +102,7 @@ int main(void)
 	    break;
 
 	case CMD_TAP_IDLE:
-	    icsp_tap_idle();
+	    jtag_idle();
 	    tty_putc(STATUS_ACK);
 	    break;
 	case CMD_TAP_COMMAND:
@@ -109,7 +110,7 @@ int main(void)
 	        uint8_t cmd;
 
 		cmd = tty_getc();
-		icsp_tap_command(cmd);
+		jtag_command(cmd);
 	    }
 	    tty_putc(STATUS_ACK);
 	    break;
@@ -119,7 +120,7 @@ int main(void)
 		uint8_t rv;
 
 		dat = tty_getc();
-		rv = icsp_xfer_byte(dat);
+		rv = jtag_data_byte(dat);
 		tty_putc(rv);
 	    }
 	    break;
@@ -138,7 +139,7 @@ int main(void)
 		    | ((uint32_t)d2 << 16)
 		    | ((uint32_t)d3 << 24)
 		    ;
-                rv = icsp_xfer_dword(dat);
+                rv = jtag_data_dword(dat);
 		r0 = rv >>  0;
 		r1 = rv >>  8;
 		r2 = rv >> 16;
@@ -165,7 +166,7 @@ int main(void)
 		    | ((uint32_t)d2 << 16)
 		    | ((uint32_t)d3 << 24)
 		    ;
-                rv = icsp_xfer_fastdata(dat);
+                rv = ejtag_fastdata(dat);
 		r0 = rv >>  0;
 		r1 = rv >>  8;
 		r2 = rv >> 16;
@@ -191,7 +192,7 @@ int main(void)
 		    | ((uint32_t)d2 << 16)
 		    | ((uint32_t)d3 << 24)
 		    ;
-                icsp_xfer_insn(dat);
+                ejtag_exec_insn(dat);
 		tty_putc(STATUS_ACK);
 	    }
 	    break;
@@ -210,14 +211,14 @@ int main(void)
 		    | ((uint32_t)d2 << 16)
 		    | ((uint32_t)d3 << 24)
 		    ;
-                icsp_set_addr(dat);
+                prog_set_addr(dat);
 		tty_putc(STATUS_ACK);
 	    }
 	    break;
 
 	case CMD_REWIND:
 	    {
-		icsp_rewind();
+		prog_rewind();
 		tty_putc(STATUS_ACK);
 	    }
 
@@ -226,7 +227,7 @@ int main(void)
 		uint8_t r0, r1, r2, r3;
 		uint32_t rv;
 
-                rv = icsp_read_dword();
+                rv = prog_read_dword();
 		r0 = rv >>  0;
 		r1 = rv >>  8;
 		r2 = rv >> 16;
@@ -252,7 +253,7 @@ int main(void)
 		    | ((uint32_t)d2 << 16)
 		    | ((uint32_t)d3 << 24)
 		    ;
-                icsp_write_dword(dat);
+                prog_write_dword(dat);
 		tty_putc(STATUS_ACK);
 	    }
 	    break;
