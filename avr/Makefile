@@ -7,44 +7,8 @@ CFLAGS=-Os -mmcu=${MCU} -Wall -DF_CPU=9216000L
 SRCS=main.c
 OBJS=${SRCS:%.c=%.o}
 
-# for NetBSD, tune this
-#TOOLDIR=/usr/cross
-# for Fedora Linux with avr-gcc packages
-TOOLDIR=/usr
-
-CC=${TOOLDIR}/bin/avr-gcc
-OBJDUMP=${TOOLDIR}/bin/avr-objdump
-OBJCOPY=${TOOLDIR}/bin/avr-objcopy
-SIZE=${TOOLDIR}/bin/avr-size
-AVRDUDE=${TOOLDIR}/bin/avrdude
-
-.SUFFIXES: .c .o .S .s
-
-.c.o:
-	${CC} ${CFLAGS} -c -o $@ $<
-
-.c.s:
-	${CC} ${CFLAGS} -S -o $@ $<
-
-.S.o:
-	${CC} ${CFLAGS} -c -o $@ $<
-
-.s.o:
-	${CC} ${CFLAGS} -c -o $@ $<
-
-all: ${PROG}.elf ${PROG}.hex
-
-${PROG}.elf: ${OBJS}
-	${CC} ${CFLAGS} -o $@ ${OBJS}
-	LANG=C ${OBJDUMP} -d $@ > ${PROG}.dump
-	@echo >> ${PROG}.dump
-	LANG=C ${SIZE} $@ >> ${PROG}.dump
-
-${PROG}.hex: ${PROG}.elf
-	${OBJCOPY} -I elf32-avr -O ihex ${PROG}.elf ${PROG}.hex
-
-clean:
-	rm -f *.s *.o *.elf *.dump *.hex
+-include config.mk
+include common.mk
 
 write:
 	${AVRDUDE} -P /dev/dtyU0 -c ft232serbb -p ${MCU} -U flash:w:${PROG}.hex
