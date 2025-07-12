@@ -18,7 +18,7 @@ usage(void)
     printf("The ICSP programmer for the Microchip PIC32MX[12]xx devices.\n");
     printf("Copyright (C) 2016, 2020, 2024 Shinichi Doyashiki.  All rights reserved.\n");
     printf("\n");
-    printf("pic32icsp -d <tty-device> [options]\n");
+    printf("p32burner -d <tty-device> [options]\n");
     printf("    -d tty-device ... set communication device\n");
     printf("    -b baud       ... set communication speed\n");
     printf("    -e            ... just erase the chip.\n");
